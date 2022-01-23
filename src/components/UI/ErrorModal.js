@@ -1,11 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Card from './Card';
 import Button from './Button';
 
 import classes from './ErrorModal.module.css';
 
-const ErrorModal = props => {
+const Modal = (props) => {
     return (
         <>
             <div className={classes.backdrop} onClick={props.onClickConfirm}/>
@@ -20,6 +21,17 @@ const ErrorModal = props => {
                     <Button onClick={props.onClickConfirm}>Okay</Button>
                 </footer>
             </Card>
+        </>
+    )
+}
+
+const ErrorModal = props => {
+    return (
+        <>
+            {ReactDOM.createPortal(
+                <Modal onClickConfirm={props.onClickConfirm} title={props.title} message={props.message}/>,
+                document.getElementById('modal-root')
+            )}
         </>
     )
 }
